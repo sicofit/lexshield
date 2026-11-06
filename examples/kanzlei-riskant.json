@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "_note": "Synthetic example. Host, accounts and KB numbers are invented.",
+  "collected_at": "2026-11-05T09:12:44+01:00",
+  "host": { "name": "KANZLEI-PC-03", "elevated": true, "other_user": false },
+  "os": { "product_name": "Windows 10 Pro", "edition_id": "Professional", "display_version": "22H2", "build": 19045, "ubr": 6456 },
+  "antivirus": { "products": [ { "name": "Windows Defender", "product_state": 393472, "exe_present": null } ] },
+  "defender": { "service_enabled": true, "realtime": false, "signature_age_days": 23 },
+  "firewall": { "profiles": { "Domain": "True", "Private": "True", "Public": "False" }, "inbound": { "Domain": "Block", "Private": "Block", "Public": "Block" }, "products": [] },
+  "bitlocker": { "drives": [ { "drive": "C:", "system": true, "shell_value": 2, "protection_status": "Off", "volume_status": "FullyDecrypted" } ] },
+  "updates": {
+    "history": [
+      { "date": "2026-10-21", "kb": "KB2267602", "title": "Security Intelligence-Update für Microsoft Defender Antivirus - KB2267602 (Version 1.400.0.0)" },
+      { "date": "2025-10-15", "kb": "KB5000001", "title": "2025-10 Kumulatives Update für Windows 10 Version 22H2 für x64-basierte Systeme (KB5000001)" },
+      { "date": "2025-10-15", "kb": "KB890830", "title": "Windows-Tool zum Entfernen bösartiger Software x64 - v5.136 (KB890830)" }
+    ],
+    "latest_hotfix": "2025-10-15"
+  },
+  "accounts": {
+    "admins": [
+      { "name": "KANZLEI-PC-03\\Administrator", "sid": "S-1-5-21-1111111111-2222222222-3333333333-500", "group": false, "source": "Local", "enabled": true, "is_current_user": false },
+      { "name": "KANZLEI-PC-03\\sekretariat", "sid": "S-1-5-21-1111111111-2222222222-3333333333-1001", "group": false, "source": "Local", "enabled": true, "is_current_user": true },
+      { "name": "KANZLEI-PC-03\\praktikum2024", "sid": "S-1-5-21-1111111111-2222222222-3333333333-1002", "group": false, "source": "Local", "enabled": true, "is_current_user": false },
+      { "name": "KANZLEI-PC-03\\it-support", "sid": "S-1-5-21-1111111111-2222222222-3333333333-1003", "group": false, "source": "Local", "enabled": true, "is_current_user": false }
+    ],
+    "builtin_admin_enabled": true,
+    "guest_enabled": true,
+    "current_user_admin": true
+  },
+  "uac": { "enable_lua": 1, "consent_prompt_admin": 0 },
+  "smb1": { "server_enabled": true, "server_registry": null, "client_driver_present": true, "client_driver_start": 2 },
+  "rdp": { "deny_connections": 0, "policy_deny_connections": null, "nla": 0, "policy_nla": null },
+  "lock": {
+    "policy_inactivity_s": null,
+    "screensaver": { "exe_set": false, "active": "1", "secure": "0", "timeout_s": "900" },
+    "screensaver_policy": { "exe_set": false, "active": null, "secure": null, "timeout_s": null },
+    "sleep_s": { "ac": 0, "dc": 900 },
+    "screen_off_s": { "ac": 0, "dc": 300 },
+    "wake_lock": { "ac": 1, "dc": 1 },
+    "modern_standby": false,
+    "delay_lock_s": null
+  },
+  "secure_boot": 0,
+  "secure_boot_ca2023": null,
+  "office": {
+    "c2r_products": [ "HomeBusiness2019Retail" ],
+    "updates_enabled": "True",
+    "version": "16.0.10417.20020",
+    "installed": [ "Microsoft Office Home and Business 2019 - de-de" ],
+    "macros": {
+      "Word": { "vba_warnings": 1, "policy_vba_warnings": null, "policy_block_internet": null },
+      "Excel": { "vba_warnings": null, "policy_vba_warnings": null, "policy_block_internet": null },
+      "PowerPoint": { "vba_warnings": null, "policy_vba_warnings": null, "policy_block_internet": null }
+    }
+  },
+  "removable": { "deny_all": null, "deny_write_disks": null, "bitlocker_required_for_write": null },
+  "network": { "llmnr_policy": null },
+  "local_docs": {
+    "desktop": { "documents": 87, "older_than_30_days": 64 },
+    "downloads": { "documents": 412, "older_than_30_days": 371 }
+  },
+  "collector_errors": []
+}

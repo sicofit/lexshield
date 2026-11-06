@@ -1,0 +1,62 @@
+# Microsoft end-of-support dates. Every date below was checked against the
+# listed Microsoft page on the "checked" date. Update this file, not the code.
+checked = 2026-11-05
+
+[windows10]
+# Windows 10 Home, Pro, Enterprise, Education
+end = 2025-10-14
+source = "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2025"
+
+[windows11]
+source = "https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information"
+# Key: build number. home_pro covers Home, Pro, Pro Education, Pro for Workstations;
+# enterprise covers Enterprise and Education. "ended" lists channels whose support
+# ended before the dates recorded here.
+
+[windows11.builds.22000]
+version = "21H2"
+ended = ["home_pro", "enterprise"]
+
+[windows11.builds.22621]
+version = "22H2"
+ended = ["home_pro"]
+enterprise = 2025-10-14
+
+[windows11.builds.22631]
+version = "23H2"
+home_pro = 2025-11-11
+enterprise = 2026-11-10
+
+[windows11.builds.26100]
+version = "24H2"
+home_pro = 2026-10-13
+enterprise = 2027-10-12
+
+[windows11.builds.26200]
+version = "25H2"
+home_pro = 2027-10-12
+enterprise = 2028-10-10
+
+[windows11.builds.26300]
+version = "26H2"
+home_pro = 2028-10-10
+enterprise = 2029-10-09
+
+[windows11.builds.28000]
+version = "26H1"
+home_pro = 2028-03-14
+enterprise = 2029-03-13
+
+[office]
+sources = [
+    "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2025",
+    "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026",
+    "https://learn.microsoft.com/en-us/lifecycle/products/office-2024",
+]
+
+[office.end]
+"2016" = 2025-10-14
+"2019" = 2025-10-14
+"2021" = 2026-10-13
+# Product page: retirement 10/10/2029 06:59:59 PT, i.e. the last day of support is 9 October.
+"2024" = 2029-10-09

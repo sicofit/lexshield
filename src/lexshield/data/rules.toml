@@ -1,0 +1,302 @@
+# LexShield rules. The check logic lives in checks.py; thresholds live in params.
+# "basis" names the source of each threshold. "LexShield-Konvention" marks a
+# documented choice of this project that no external norm prescribes.
+# id is the stable key for reports and JSON; name is what people see and type in the
+# terminal (lexshield explain virenschutz). Titles name the topic; the check's detail
+# says what was found.
+# "why" and "fix" are written for people without IT training: short sentences,
+# technical names only in parentheses or where Windows shows them. What only an IT
+# person can do goes into "fix_it". "who" says who usually fixes it: "selbst" (the
+# person at the device, in a few minutes) or "it" (the IT support).
+# "legal" says in one or two plain sentences what an open finding means legally;
+# "norms" lists the provisions behind it, keys from norms.toml, most specific first.
+# "severity_note" explains when a check raises its own severity.
+
+[[rule]]
+id = "LS-SYS-01"
+name = "windows"
+category = "system"
+check = "os_lifecycle"
+severity = "critical"
+who = "it"
+title = "Windows-Version"
+why = "Ohne Sicherheitsupdates bleiben neu entdeckte Lücken offen. Angreifer suchen gezielt nach solchen Geräten, etwa um Akten zu verschlüsseln und Lösegeld zu fordern (Ransomware)."
+fix = "Auf die aktuelle Version von Windows 11 wechseln. Ältere Geräte müssen dafür oft ersetzt werden; die IT-Betreuung weiss, ob das nötig ist."
+fix_it = "Windows 10 bis zum Wechsel über Extended Security Updates (ESU) weiter mit Sicherheitsupdates versorgen."
+legal = "Die Datenschutzverordnung verlangt ausdrücklich, Betriebssysteme «stets auf dem neusten Sicherheitsstand» zu halten. Ein Windows ohne Sicherheitsupdates erfüllt das nicht mehr."
+basis = "Microsoft-Lebenszyklus (data/lifecycle.toml, Quellen dort). Warnung 90 Tage vor Ende: LexShield-Konvention."
+norms = ["dsv3_2f", "ssr37", "dsg8", "bgfa12a", "or398"]
+params = { warn_days = 90 }
+
+[[rule]]
+id = "LS-SYS-02"
+name = "updates"
+category = "system"
+check = "update_age"
+severity = "high"
+who = "selbst"
+title = "Windows-Updates"
+why = "Jedes Update schliesst bekannte Lücken. Sobald Microsoft ein Update veröffentlicht, wissen auch Angreifer, wo die Lücke liegt."
+fix = "Unter Einstellungen › Windows Update nach Updates suchen und das Gerät danach neu starten."
+fix_it = "Laufen die Updates nicht durch, das Ereignisprotokoll von Windows Update prüfen und klären, ob eine Richtlinie sie zurückhält."
+legal = "Wer Updates liegen lässt, schliesst «bekannte kritische Lücken» nicht, wie es die Datenschutzverordnung verlangt."
+basis = "Microsoft veröffentlicht Sicherheitsupdates monatlich (Patch Tuesday). Schwellen 35 und 65 Tage, also ein bzw. zwei verpasste Zyklen: LexShield-Konvention."
+norms = ["dsv3_2f", "ssr37", "dsg8", "bgfa12a", "or398"]
+params = { warn_days = 35, fail_days = 65 }
+
+[[rule]]
+id = "LS-SYS-03"
+name = "virenschutz"
+category = "system"
+check = "antivirus"
+severity = "critical"
+who = "selbst"
+title = "Virenschutz"
+why = "Schadsoftware kommt meist als E-Mail-Anhang, auch von Gegenparteien, Behörden oder Mandanten. Ohne laufenden Virenschutz kann sie Akten unbemerkt verschlüsseln oder kopieren."
+fix = "In der App «Windows-Sicherheit» unter «Viren- & Bedrohungsschutz» den Echtzeitschutz einschalten. Bei Programmen anderer Hersteller im Programm selbst nachsehen, ob der Schutz pausiert ist."
+legal = "Nach dem Leitfaden des EDÖB gehört auf jeden PC ein eingeschalteter Virenschutz. Ohne ihn werden Verletzungen der Datensicherheit nicht «rasch erkannt», wie es die Datenschutzverordnung verlangt."
+basis = "EDÖB, Leitfaden zu den technischen und organisatorischen Massnahmen (15.1.2024): «Auf jedem PC ist ein Antivirus-Programm aktiviert und wird regelmässig aktualisiert.» Status aus dem Windows-Sicherheitscenter (root/SecurityCenter2); das Statusfeld ist nicht dokumentiert, die Dekodierung wurde gegen die dokumentierte Schnittstelle IWscProduct geprüft (tools/wsc_crosscheck.py)."
+norms = ["dsv3_3c", "ssr37", "dsg8", "bgfa12a", "or398"]
+
+[[rule]]
+id = "LS-SYS-04"
+name = "virenschutz-updates"
+category = "system"
+check = "av_signatures"
+severity = "high"
+who = "selbst"
+title = "Virenschutz-Updates"
+why = "Der Virenschutz erkennt nur Schadsoftware, die er schon kennt. Ohne tägliche Aktualisierung übersieht er neue Angriffe, zum Beispiel als Rechnung getarnte Anhänge."
+fix = "In der App «Windows-Sicherheit» unter «Viren- & Bedrohungsschutz» nach Updates suchen. Bleibt der Virenschutz danach veraltet, die IT-Betreuung beiziehen."
+fix_it = "Klären, warum die Signaturen nicht automatisch aktualisiert werden (Update-Quelle, Richtlinie, Proxy)."
+legal = "Ein veralteter Virenschutz erkennt neue Angriffe nicht; die Datenschutzverordnung verlangt, Verletzungen der Datensicherheit «rasch» zu erkennen."
+basis = "EDÖB, Leitfaden TOM (15.1.2024): Antivirus-Programm «wird regelmässig aktualisiert». Höchstalter 7 Tage: LexShield-Konvention."
+norms = ["dsv3_3c", "ssr37", "dsg8"]
+params = { max_age_days = 7 }
+
+[[rule]]
+id = "LS-SYS-05"
+name = "firewall"
+category = "system"
+check = "firewall"
+severity = "high"
+who = "selbst"
+title = "Firewall"
+why = "Die Firewall blockiert Zugriffe von aussen, zum Beispiel im WLAN von Hotel, Gericht oder Zug. Ohne Firewall kann sich jemand im selben Netz direkt mit dem Gerät verbinden."
+fix = "In der App «Windows-Sicherheit» unter «Firewall- & Netzwerkschutz» die Firewall für alle Netzwerke einschalten, oder eine andere Firewall eingeschaltet lassen."
+legal = "Ohne Firewall ist das Gerät für andere im selben Netz erreichbar. Die Benutzerkontrolle der Datenschutzverordnung soll verhindern, dass Unbefugte es über das Netz benutzen."
+basis = "CIS Microsoft Windows 11 Benchmark: für alle Profile Firewall-Status «Ein» und eingehende Verbindungen «Blockieren». Eine Firewall eines anderen Herstellers, die Windows-Sicherheit als eingeschaltet meldet, genügt."
+norms = ["dsv3_1c", "ssr37", "dsg8"]
+
+[[rule]]
+id = "LS-SYS-06"
+name = "secure-boot"
+category = "system"
+check = "secure_boot"
+severity = "medium"
+who = "it"
+title = "Sicherer Start (Secure Boot)"
+why = "Secure Boot sorgt dafür, dass beim Einschalten nur vertrauenswürdige Software startet. Ohne Secure Boot kann sich Schadsoftware schon vor Windows einnisten, wo der Virenschutz sie kaum findet."
+fix = "Secure Boot von der IT-Betreuung einschalten lassen."
+fix_it = "In den Firmware-Einstellungen (UEFI) Secure Boot aktivieren. Vorher prüfen, ob Windows im UEFI-Modus mit GPT-Datenträger startet; sonst startet das Gerät danach nicht mehr. Fehlen die Zertifikate von 2023, Windows-Updates und Firmware-Updates des Herstellers einspielen."
+legal = "Microsoft liefert für Windows zertifizierte Geräte mit eingeschaltetem Secure Boot aus, Windows 11 setzt es voraus. Ist es ausgeschaltet, liegt der Schutz unter dem, was der Hersteller als Standard vorgibt."
+basis = "Microsoft: Secure-Boot-fähiges UEFI ist Systemanforderung für Windows 11; nach den Anforderungen der Windows-Hardware-Zertifizierung ist Secure Boot bei Auslieferung eingeschaltet. Die Secure-Boot-Zertifikate von 2011 laufen 2026 ab; ob die Nachfolger von 2023 eingespielt sind, meldet Windows im Wert UEFICA2023Status. Fehlen sie, warnt LexShield."
+norms = ["dsv1_4", "ssr37", "dsg8"]
+
+[[rule]]
+id = "LS-SYS-07"
+name = "smb1"
+category = "system"
+check = "smb1"
+severity = "high"
+who = "it"
+title = "Veraltete Dateifreigabe (SMBv1)"
+why = "SMBv1 ist ein altes Verfahren für geteilte Ordner. Über seine Lücken verbreiteten sich 2017 WannaCry und NotPetya von Gerät zu Gerät. Ein einziges Gerät mit SMBv1 gefährdet die gemeinsame Ablage."
+fix = "SMBv1 von der IT-Betreuung entfernen lassen. Vorher klären, ob ein altes Gerät wie ein Drucker oder Netzwerkspeicher es noch braucht."
+fix_it = "Unter «Windows-Features aktivieren oder deaktivieren» die «Unterstützung für SMB 1.0/CIFS-Dateifreigabe» entfernen."
+legal = "SMBv1 ist veraltet und unsicher; Microsoft installiert es nicht mehr. Ein eingeschaltetes SMBv1 entspricht nicht dem Stand der Technik."
+basis = "Microsoft: SMBv1 ist veraltet und wird nicht mehr standardmässig installiert. CIS Benchmark: SMBv1 deaktiviert."
+norms = ["dsv1_4", "ssr37", "dsg8"]
+
+[[rule]]
+id = "LS-SYS-08"
+name = "office"
+category = "system"
+check = "office_lifecycle"
+severity = "critical"
+who = "it"
+title = "Office-Version"
+why = "Word, Excel und Outlook öffnen täglich fremde Dateien. Ohne Sicherheitsupdates bleiben Lücken offen, die präparierte Dokumente ausnutzen."
+fix = "Auf Microsoft 365 oder Office 2024 wechseln; die IT-Betreuung oder der Lizenzhändler hilft dabei."
+legal = "Für Anwendungssoftware gilt dasselbe wie für Windows: Sie muss «auf dem neusten Sicherheitsstand» sein. Ein Office ohne Updates erfüllt das nicht."
+basis = "Microsoft-Lebenszyklus: Office 2016 und 2019 bis 14.10.2025, Office 2021 bis 13.10.2026 (data/lifecycle.toml)."
+norms = ["dsv3_2f", "ssr37", "dsg8", "bgfa12a", "or398"]
+params = { warn_days = 90 }
+
+[[rule]]
+id = "LS-SYS-09"
+name = "makros"
+category = "system"
+check = "office_macros"
+severity = "high"
+who = "selbst"
+title = "Makros in Office"
+why = "Makros sind kleine Programme in Word- und Excel-Dateien. Über sie verbreitete sich jahrelang Emotet, eines der gefährlichsten Schadprogramme. Kanzleien erhalten laufend Dokumente von Unbekannten."
+fix = "In Word und in Excel unter Datei › Optionen › Trust Center › Einstellungen für das Trust Center › Makroeinstellungen «Alle Makros mit Benachrichtigung deaktivieren» wählen."
+fix_it = "Makros aus dem Internet zusätzlich per Gruppenrichtlinie sperren («Ausführung von Makros in Office-Dateien aus dem Internet blockieren»)."
+legal = "Microsoft sperrt Makros aus dem Internet seit 2022 ab Werk. Wer alle Makros ohne Rückfrage laufen lässt, hebt diesen Schutz des Herstellers auf und öffnet einen bekannten Angriffsweg."
+basis = "Microsoft blockiert Makros aus dem Internet seit 2022 standardmässig; die Einstellung VBAWarnings=1 («alle Makros aktivieren») hebt diesen Schutz auf."
+norms = ["dsv1_4", "ssr37", "dsg8"]
+
+[[rule]]
+id = "LS-ACC-01"
+name = "admin-alltag"
+category = "accounts"
+check = "daily_admin"
+severity = "medium"
+who = "it"
+title = "Administratorrechte im Alltag"
+why = "Wer als Administrator E-Mails liest und im Internet surft, gibt Schadsoftware dieselben Rechte. Sie kann dann alles ändern, auch den Virenschutz abschalten."
+fix = "Für die tägliche Arbeit ein gewöhnliches Konto ohne Administratorrechte einrichten lassen. Das Administratorkonto nur noch für Installationen nutzen."
+fix_it = "Ein Standardbenutzerkonto anlegen, das Profil übernehmen und das bisherige Konto aus der Gruppe «Administratoren» nehmen."
+legal = "Die Datenschutzverordnung verlangt, dass jede Person nur den Zugriff hat, den sie für ihre Aufgabe braucht. Dauernde Administratorrechte gehen darüber hinaus."
+basis = "CIS Controls v8, Safeguard 5.4."
+norms = ["dsv3_1a", "ssr37", "dsg8"]
+
+[[rule]]
+id = "LS-ACC-02"
+name = "admin-anzahl"
+category = "accounts"
+check = "admin_count"
+severity = "medium"
+who = "it"
+title = "Anzahl Administratorkonten"
+why = "Jedes Administratorkonto ist ein Generalschlüssel zu allen Akten auf dem Gerät. Konten früherer Mitarbeitender oder IT-Firmen bleiben oft vergessen bestehen."
+fix = "Mit der IT-Betreuung klären, wem jedes Administratorkonto gehört, und nicht benötigte Konten entfernen. Hat eine IT-Firma ein Konto: im Vertrag nachsehen, ob sie zur Geheimhaltung verpflichtet ist, und das sonst nachholen."
+fix_it = "Konten in Computerverwaltung › Lokale Benutzer und Gruppen › Gruppen › Administratoren entfernen oder deaktivieren."
+legal = "Eine IT-Firma mit Administratorkonto gilt nach herrschender Lehre als Hilfsperson. Die Kanzlei muss sie sorgfältig auswählen, instruieren und vertraglich auf das Berufsgeheimnis verpflichten und haftet für ihre Fehler. Konten früherer Mitarbeitender geben Unbefugten Zugriff."
+basis = "CIS Controls v8, Safeguard 5.4. Höchstzahl 2 (Arbeitskonto plus Notfallkonto): LexShield-Konvention."
+norms = ["bgfa13_2", "ssr38", "dsg9", "or101", "dsv3_1a", "dsg8"]
+params = { max_enabled = 2 }
+
+[[rule]]
+id = "LS-ACC-03"
+name = "gastkonto"
+category = "accounts"
+check = "guest_account"
+severity = "medium"
+who = "it"
+title = "Gastkonto"
+why = "Mit dem Gastkonto kann man sich ohne eigenes Kennwort anmelden. Wer dann auf Akten zugegriffen hat, lässt sich nicht mehr feststellen."
+fix = "Das Gastkonto von der IT-Betreuung deaktivieren lassen."
+fix_it = "Computerverwaltung › Lokale Benutzer und Gruppen › Benutzer › Gast › «Konto ist deaktiviert», oder Richtlinie «Konten: Gastkontenstatus» deaktivieren."
+legal = "Über das Gastkonto kommt jemand ohne persönliches Kennwort ins System. Was dabei verändert wurde, lässt sich keiner Person zuordnen, obwohl die Datenschutzverordnung genau das verlangt."
+basis = "CIS Benchmark: «Konten: Gastkontenstatus» deaktiviert."
+norms = ["dsv3_3a", "dsg8"]
+
+[[rule]]
+id = "LS-ACC-04"
+name = "kontensteuerung"
+category = "accounts"
+check = "uac"
+severity = "high"
+who = "selbst"
+title = "Benutzerkontensteuerung"
+why = "Die Benutzerkontensteuerung fragt nach, bevor ein Programm tief ins System eingreift. Ohne diese Rückfrage installiert sich Schadsoftware unbemerkt."
+fix = "Im Startmenü «Einstellungen der Benutzerkontensteuerung ändern» suchen und den Regler nicht auf «Nie benachrichtigen» stellen."
+fix_it = "Ist sie ganz ausgeschaltet (EnableLUA = 0), die Richtlinie «Benutzerkontensteuerung: Alle Administratoren im Administratorbestätigungsmodus ausführen» aktivieren und neu starten."
+legal = "Ohne Rückfrage erhält jedes Programm volle Rechte. Der Zugriff ist dann nicht auf das Nötige begrenzt, wie es die Datenschutzverordnung verlangt."
+basis = "CIS Benchmark, Abschnitt Benutzerkontensteuerung (EnableLUA, ConsentPromptBehaviorAdmin)."
+norms = ["dsv3_1a", "ssr37", "dsg8"]
+
+[[rule]]
+id = "LS-ACC-05"
+name = "remotedesktop"
+category = "accounts"
+check = "rdp"
+severity = "high"
+who = "it"
+title = "Fernzugriff (Remotedesktop)"
+why = "Über Remotedesktop dringen Angreifer oft von aussen ein. Ist er ungeschützt offen, startet Windows die Sitzung, bevor sich jemand angemeldet hat."
+fix = "Wird das Gerät nie aus der Ferne bedient, Remotedesktop ausschalten (Einstellungen › System › Remotedesktop). Sonst den Zugang von der IT-Betreuung absichern lassen. Nutzt eine IT-Firma ihn, im Vertrag die Geheimhaltung prüfen."
+fix_it = "Authentifizierung auf Netzwerkebene (NLA) erzwingen und den Zugang nur über VPN erlauben, nie direkt aus dem Internet."
+legal = "Unbefugte dürfen das Gerät nicht über eine Fernverbindung benutzen können. Eine IT-Firma, die den Zugang nutzt, gilt nach herrschender Lehre als Hilfsperson und ist vertraglich auf das Berufsgeheimnis zu verpflichten."
+basis = "CIS Benchmark: «Benutzerauthentifizierung mit Authentifizierung auf Netzwerkebene erforderlich» aktiviert."
+norms = ["dsv3_1c", "bgfa13_2", "ssr38", "dsg9", "dsg8"]
+
+[[rule]]
+id = "LS-ACC-06"
+name = "bildschirmsperre"
+category = "accounts"
+check = "screen_lock"
+severity = "medium"
+who = "selbst"
+title = "Bildschirmsperre"
+why = "Am Empfang, im Besprechungszimmer oder im Zug: Ein offener Bildschirm zeigt Mandatsakten allen, die vorbeigehen."
+fix = "In den Windows-Einstellungen (Suchbegriff «Energiesparmodus») Bildschirm und Energiesparmodus auf höchstens 15 Minuten stellen, auch am Netzstrom. Beim Weggehen sofort sperren: Windows-Taste + L. Das Team schriftlich anweisen, dasselbe zu tun."
+fix_it = "Alternativ per Richtlinie «Interaktive Anmeldung: Computerinaktivitätsgrenze» auf höchstens 900 Sekunden setzen."
+legal = "Ein offener Bildschirm zeigt Mandatsakten Unbefugten. Das berührt das Berufsgeheimnis direkt. Standesregeln und Datenschutz verlangen, Mandatsdaten vor dem Zugriff Dritter zu schützen."
+basis = "CIS Benchmark und Microsoft Security Baseline: Inaktivitätsgrenze höchstens 900 Sekunden. Als Sperre zählen auch der Energiesparmodus und, auf Geräten mit Modern Standby, das Ausschalten des Bildschirms samt der eingestellten Wartezeit, aber nur, wenn die Energieeinstellung «Kennwort bei Reaktivierung anfordern» eingeschaltet ist."
+norms = ["bgfa13_1", "ssr37", "dsg8"]
+params = { max_seconds = 900 }
+
+[[rule]]
+id = "LS-DAT-01"
+name = "festplatte"
+category = "data"
+check = "bitlocker"
+severity = "high"
+severity_note = "kritisch, wenn in Downloads oder auf dem Desktop Dokumente liegen"
+who = "it"
+title = "Festplattenverschlüsselung"
+why = "Ohne Verschlüsselung lässt sich die Festplatte eines verlorenen oder gestohlenen Notebooks in jedem anderen Gerät lesen, mit allen Akten."
+fix = "Die Verschlüsselung von der IT-Betreuung einschalten lassen. Den Wiederherstellungsschlüssel, einen langen Zahlencode, ausgedruckt an einem sicheren Ort aufbewahren, getrennt vom Gerät."
+fix_it = "BitLocker für alle festen Laufwerke einschalten, bei Windows Home die Geräteverschlüsselung. Den Wiederherstellungsschlüssel nicht nur im Microsoft-Konto hinterlegen."
+legal = "Ein unverschlüsseltes Notebook macht bei Verlust alle Akten lesbar; das berührt das Berufsgeheimnis direkt. Verschlüsselte Daten gelten nach der Lehre nicht als offenbart, solange der Wiederherstellungsschlüssel nicht beim Gerät liegt. Geht ein unverschlüsseltes Gerät verloren, ist das zu dokumentieren und bei hohem Risiko für die Betroffenen dem EDÖB so rasch als möglich zu melden."
+basis = "Datenträgerkontrolle nach Art. 3 Abs. 2 lit. a DSV. Geprüft werden alle festen Laufwerke; das schlechteste zählt. Mit Administratorrechten liest LexShield den Schutzstatus von BitLocker und erkennt auch einen angehaltenen Schutz. Ohne sie liest es den Status, den der Windows-Explorer anzeigt; eindeutig sind dort «verschlüsselt», «nicht verschlüsselt» und «Verschlüsselung läuft», jeder andere Wert gilt als nicht prüfbar."
+norms = ["bgfa13_1", "stgb321", "dsv3_2a", "ssr37", "dsg8", "dsg24", "dsv15_4"]
+
+[[rule]]
+id = "LS-DAT-02"
+name = "usb"
+category = "data"
+check = "removable_media"
+severity = "medium"
+who = "selbst"
+title = "USB-Sticks"
+why = "Akten auf einem USB-Stick verlassen die Kanzlei ohne Kontrolle. Geht der Stick verloren, kann jeder den Inhalt lesen."
+fix = "Das Team schriftlich anweisen, Akten nur auf verschlüsselten USB-Sticks mitzunehmen. Die IT-Betreuung kann das technisch erzwingen."
+fix_it = "Richtlinie «Schreibzugriff auf Wechseldatenträger verweigern, die nicht durch BitLocker geschützt sind» aktivieren (BitLocker To Go). Windows Home kennt diese Richtlinie nicht; dort bleibt nur die Weisung ans Team."
+legal = "Unverschlüsselte USB-Sticks widersprechen der Datenträger- und Transportkontrolle. Geht ein Stick mit Akten verloren, ist das Berufsgeheimnis betroffen; der Verlust ist zu dokumentieren und bei hohem Risiko für die Betroffenen dem EDÖB zu melden."
+basis = "EDÖB, Leitfaden TOM (15.1.2024): «Externe Datenträger, die besonders schützenswerte («sensible») Personendaten oder Persönlichkeitsprofile enthalten, werden verschlüsselt.»"
+norms = ["bgfa13_1", "dsv3_2a", "dsv3_2c", "ssr37", "dsg24"]
+
+[[rule]]
+id = "LS-DAT-03"
+name = "downloads"
+category = "data"
+check = "local_documents"
+severity = "low"
+who = "selbst"
+title = "Dokumente in Downloads und auf dem Desktop"
+why = "Downloads und Desktop haben keine Zugriffsregeln und oft kein Backup. Dort vergessene Mandatsdokumente sind bei einem Vorfall schwer zu überblicken und zu melden."
+fix = "Dokumente in die Aktenablage verschieben und den Download-Ordner regelmässig leeren."
+legal = "Verstreute Kopien erschweren nach einer Panne die Meldung und die vorgeschriebene Dokumentation. Liegen die Dateien ausserhalb der gesicherten Ablage, fehlen sie womöglich im Backup."
+basis = "Heuristik, Schwelle 100 Dateien: LexShield-Konvention. Gezählt werden nur Dateiendungen (pdf, doc, docx, msg, eml, odt, rtf); Dateinamen werden nicht erfasst."
+norms = ["dsv3_2d", "dsg24", "dsv15_4"]
+params = { max_documents = 100 }
+
+[[rule]]
+id = "LS-NET-01"
+name = "llmnr"
+category = "network"
+check = "llmnr"
+severity = "low"
+who = "it"
+title = "Netzwerkprotokoll LLMNR"
+why = "LLMNR ist ein altes Windows-Verfahren, um andere Geräte im Netz zu finden. Angreifer im selben Netz können darüber Anmeldedaten abfangen, etwa in Bürogemeinschaften oder Co-Working-Räumen."
+fix = "LLMNR von der IT-Betreuung abschalten lassen."
+fix_it = "Richtlinie «Multicastnamensauflösung deaktivieren» aktivieren (Computerkonfiguration › Administrative Vorlagen › Netzwerk › DNS-Client)."
+legal = "Der CIS Benchmark, ein verbreiteter Sicherheitsstandard für Windows, verlangt das Abschalten. In geteilten Netzen, etwa in Bürogemeinschaften, ist das Risiko konkret."
+basis = "CIS Benchmark: «Turn off multicast name resolution» aktiviert."
+norms = ["dsv1_4", "ssr37", "dsg8"]

@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# Real audit output contains host and account names. Never commit it.
+reports/
+facts-*.json
+lexshield-*.json
+lexshield-*.md

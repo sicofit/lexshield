@@ -1,0 +1,48 @@
+# Firm profiles. An override changes a rule's severity for that profile;
+# every override states its reason.
+
+[profile.einzel]
+label = "Einzelkanzlei"
+size = "1 Person"
+
+[[profile.einzel.override]]
+rule = "LS-ACC-02"
+severity = "low"
+reason = "Bei einer Person ist ein zweites Administratorkonto meist das Notfallkonto."
+
+[profile.klein]
+label = "Kleine Kanzlei"
+size = "2–10 Mitarbeitende"
+
+[profile.mittel]
+label = "Mittlere Kanzlei"
+size = "10–50 Mitarbeitende"
+
+[[profile.mittel.override]]
+rule = "LS-ACC-01"
+severity = "high"
+reason = "Mit Administratorrechten erreicht eine Infektion in grösseren Netzen weitere Geräte."
+
+[[profile.mittel.override]]
+rule = "LS-NET-01"
+severity = "medium"
+reason = "Je mehr Geräte im selben Netz, desto eher ist eines davon kompromittiert und hört LLMNR mit."
+
+[profile.gross]
+label = "Grosse Kanzlei"
+size = "über 50 Mitarbeitende"
+
+[[profile.gross.override]]
+rule = "LS-ACC-01"
+severity = "high"
+reason = "Mit Administratorrechten erreicht eine Infektion in grösseren Netzen weitere Geräte."
+
+[[profile.gross.override]]
+rule = "LS-NET-01"
+severity = "medium"
+reason = "Je mehr Geräte im selben Netz, desto eher ist eines davon kompromittiert und hört LLMNR mit."
+
+[[profile.gross.override]]
+rule = "LS-DAT-02"
+severity = "high"
+reason = "Bei vielen Mitarbeitenden ist ein verlorener USB-Datenträger wahrscheinlicher."

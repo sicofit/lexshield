@@ -1,0 +1,271 @@
+# The Swiss legal framework LexShield's findings rest on. Not legal advice.
+#
+# Four parts, from general to specific:
+#   duty      five duties a finding can touch; the terminal groups findings by them
+#   act       the source of the norms and who it binds
+#   norm      one provision, cited down to the letter; each belongs to one duty and one act
+#   question  open legal questions, with the literature on each side
+#
+# Text in «» is the official wording, checked against the source on the date in
+# "checked". Everything outside «» is a summary.
+
+checked = 2026-11-06
+
+# --------------------------------------------------------------------------- duties
+
+[duty.geheimnis]
+label = "Berufsgeheimnis"
+text = "Was die Klientschaft anvertraut, darf niemand Unbefugtes zu sehen bekommen."
+
+[duty.hilfspersonen]
+label = "Hilfspersonen"
+text = "Wer für die Kanzlei an Mandatsdaten kommt, etwa eine IT-Firma, ist sorgfältig auszuwählen und auf das Berufsgeheimnis zu verpflichten. Für Schäden, die sie dabei der Klientschaft zufügt, haftet die Kanzlei wie für eigenes Handeln."
+
+[duty.sicherheit]
+label = "Datensicherheit"
+text = "Mandatsdaten sind nach dem Stand der Technik zu schützen."
+
+[duty.sorgfalt]
+label = "Sorgfalt und Haftung"
+text = "Erhebliche Lücken können als unsorgfältige Berufsausübung gelten und eine Haftung aus dem Mandat begründen."
+
+[duty.meldung]
+label = "Meldepflicht"
+text = "Erst bei einer Panne: Gehen Mandatsdaten verloren oder an Unbefugte, ist das zu dokumentieren und bei voraussichtlich hohem Risiko für die Betroffenen dem EDÖB zu melden."
+
+# --------------------------------------------------------------------------- acts
+
+[act.bgfa]
+name = "BGFA"
+title = "Anwaltsgesetz (SR 935.61)"
+binds = "Anwältinnen und Anwälte mit Patent, die im Rahmen des Anwaltsmonopols Parteien vor Gerichtsbehörden vertreten (Art. 2 Abs. 1 BGFA). Die Berufsregeln gelten dann für die ganze Berufstätigkeit, auch für die Beratung (BGE 130 II 270 E. 3.2). Aufsicht: kantonale Aufsichtsbehörde."
+url = "https://www.fedlex.admin.ch/eli/cc/2002/153/de"
+
+[act.ssr]
+name = "SSR"
+title = "Schweizerische Standesregeln, in Kraft seit 1.7.2023"
+binds = "Richten sich an alle in der Schweiz praktizierenden Anwältinnen und Anwälte, verbindlich sind sie für die Mitglieder des Schweizerischen Anwaltsverbands (Art. 2 SSR); die Disziplinargewalt liegt bei den kantonalen Verbänden (Art. 39 SSR). Gerichte ziehen sie zur Auslegung von Art. 12 BGFA heran, soweit sie eine landesweite Auffassung ausdrücken (BGE 130 II 270)."
+url = "https://www.sav-fsa.ch/documents/672183/1748990/Schweizerische_Standesregeln_1.7.23.pdf/53bb74c0-9c9e-2ad8-d396-638aa19066c7"
+
+[act.stgb]
+name = "StGB"
+title = "Strafgesetzbuch (SR 311.0)"
+binds = "Rechtsanwältinnen und Rechtsanwälte samt ihren Hilfspersonen, unabhängig vom Registereintrag; auch nach Ende der Berufsausübung (Art. 321 Ziff. 1 Abs. 3 StGB)."
+url = "https://www.fedlex.admin.ch/eli/cc/54/757_781_799/de"
+
+[act.dsg]
+name = "DSG"
+title = "Datenschutzgesetz (SR 235.1)"
+binds = "Jede Kanzlei, die Personendaten bearbeitet (Art. 2 Abs. 1 lit. a DSG), ebenso ihre Auftragsbearbeiter (Art. 8 Abs. 1 DSG)."
+url = "https://www.fedlex.admin.ch/eli/cc/2022/491/de"
+
+[act.dsv]
+name = "DSV"
+title = "Datenschutzverordnung (SR 235.11)"
+binds = "Wie das DSG; die DSV legt die Mindestanforderungen an die Datensicherheit fest (Art. 8 Abs. 3 DSG)."
+url = "https://www.fedlex.admin.ch/eli/cc/2022/568/de"
+
+[act.or]
+name = "OR"
+title = "Obligationenrecht (SR 220)"
+binds = "Jede Anwältin und jeder Anwalt gegenüber der Klientschaft; das Mandat ist ein Auftrag (Art. 394 ff. OR)."
+url = "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de"
+
+# --------------------------------------------------------------------------- norms: Berufsgeheimnis
+
+[norm.bgfa13_1]
+ref = "Art. 13 Abs. 1 BGFA"
+duty = "geheimnis"
+act = "bgfa"
+title = "Berufsgeheimnis"
+text = "«Anwältinnen und Anwälte unterstehen zeitlich unbegrenzt und gegenüber jedermann dem Berufsgeheimnis über alles, was ihnen infolge ihres Berufes von ihrer Klientschaft anvertraut worden ist.»"
+
+[norm.stgb321]
+ref = "Art. 321 Ziff. 1 StGB"
+duty = "geheimnis"
+act = "stgb"
+title = "Verletzung des Berufsgeheimnisses"
+text = "Rechtsanwälte und ihre Hilfspersonen, «die ein Geheimnis offenbaren, das ihnen infolge ihres Berufes anvertraut worden ist oder das sie in dessen Ausübung wahrgenommen haben», werden «auf Antrag, mit Freiheitsstrafe bis zu drei Jahren oder Geldstrafe bestraft». Strafbar ist nur Vorsatz; Eventualvorsatz genügt, Fahrlässigkeit nicht (Art. 12 StGB). Verschlüsselte Daten gelten nach der Lehre nicht als offenbart, solange der Dritte den Schlüssel nicht hat."
+
+# --------------------------------------------------------------------------- norms: Hilfspersonen
+
+[norm.bgfa13_2]
+ref = "Art. 13 Abs. 2 BGFA"
+duty = "hilfspersonen"
+act = "bgfa"
+title = "Hilfspersonen"
+text = "«Sie sorgen für die Wahrung des Berufsgeheimnisses durch ihre Hilfspersonen.»"
+
+[norm.ssr38]
+ref = "Art. 38 SSR"
+duty = "hilfspersonen"
+act = "ssr"
+title = "Outsourcing"
+text = "Outsourcing ist zulässig. Drittanbieter sind darauf hinzuweisen, dass sie «als Hilfspersonen gemäss Art. 321 StGB dem Berufsgeheimnis selbst unterstehen»; Auswahl, Instruktion und Vertrag müssen das sicherstellen. Bei ausreichend erfahrenen Cloud-Anbietern mit Datenspeicherung und -bearbeitung «im Inland, in der EU, der EFTA und im Vereinigten Königreich» wird ausreichende Sicherheit vermutet; für andere Länder gilt keine Vermutung."
+
+[norm.dsg9]
+ref = "Art. 9 DSG"
+duty = "hilfspersonen"
+act = "dsg"
+title = "Bearbeitung durch Auftragsbearbeiter"
+text = "Daten dürfen einem Auftragsbearbeiter nur übertragen werden, wenn er sie so bearbeitet, wie die Kanzlei selbst es dürfte, und «keine gesetzliche oder vertragliche Geheimhaltungspflicht die Übertragung verbietet» (Abs. 1). Die Kanzlei muss sich vergewissern, dass er «in der Lage ist, die Datensicherheit zu gewährleisten» (Abs. 2)."
+
+[norm.or101]
+ref = "Art. 101 Abs. 1 OR"
+duty = "hilfspersonen"
+act = "or"
+title = "Haftung für Hilfspersonen"
+text = "Wer eine Pflicht durch eine Hilfsperson erfüllen lässt, hat «den Schaden zu ersetzen, den die Hilfsperson in Ausübung ihrer Verrichtungen verursacht»."
+
+# --------------------------------------------------------------------------- norms: Datensicherheit
+
+[norm.ssr37]
+ref = "Art. 37 SSR"
+duty = "sicherheit"
+act = "ssr"
+title = "Datensicherheit"
+text = "«Anwältinnen und Anwälte stellen sicher, dass digitale Daten, die dem Berufsgeheimnis unterstehen, so aufbewahrt und für den digitalen Zugriff bereitgestellt werden, dass sie nach dem Stand der Technik vor unerlaubtem Zugriff Dritter geschützt sind.»"
+
+[norm.dsg8]
+ref = "Art. 8 Abs. 1 DSG"
+duty = "sicherheit"
+act = "dsg"
+title = "Datensicherheit"
+text = "«Der Verantwortliche und der Auftragsbearbeiter gewährleisten durch geeignete technische und organisatorische Massnahmen eine dem Risiko angemessene Datensicherheit.»"
+
+[norm.dsv1_4]
+ref = "Art. 1 Abs. 4 DSV"
+duty = "sicherheit"
+act = "dsv"
+title = "Stand der Technik"
+text = "Bei der Wahl der Massnahmen sind der «Stand der Technik» und die «Implementierungskosten» zu berücksichtigen. Die Massnahmen sind «über die gesamte Bearbeitungsdauer hinweg zu überprüfen» (Abs. 5)."
+
+[norm.dsv3_1a]
+ref = "Art. 3 Abs. 1 lit. a DSV"
+duty = "sicherheit"
+act = "dsv"
+title = "Zugriffskontrolle"
+text = "Massnahmen, damit «berechtigte Personen nur auf diejenigen Personendaten Zugriff haben, die sie zur Erfüllung ihrer Aufgaben benötigen»."
+
+[norm.dsv3_1c]
+ref = "Art. 3 Abs. 1 lit. c DSV"
+duty = "sicherheit"
+act = "dsv"
+title = "Benutzerkontrolle"
+text = "Massnahmen, damit «unbefugte Personen automatisierte Datenbearbeitungssysteme nicht mittels Einrichtungen zur Datenübertragung benutzen können»."
+
+[norm.dsv3_2a]
+ref = "Art. 3 Abs. 2 lit. a DSV"
+duty = "sicherheit"
+act = "dsv"
+title = "Datenträgerkontrolle"
+text = "Massnahmen, damit «unbefugte Personen Datenträger nicht lesen, kopieren, verändern, verschieben, löschen oder vernichten können»."
+
+[norm.dsv3_2c]
+ref = "Art. 3 Abs. 2 lit. c DSV"
+duty = "sicherheit"
+act = "dsv"
+title = "Transportkontrolle"
+text = "Massnahmen, damit «unbefugte Personen bei der Bekanntgabe von Personendaten oder beim Transport von Datenträgern Personendaten nicht lesen, kopieren, verändern, löschen oder vernichten können»."
+
+[norm.dsv3_2d]
+ref = "Art. 3 Abs. 2 lit. d DSV"
+duty = "sicherheit"
+act = "dsv"
+title = "Wiederherstellung"
+text = "Massnahmen, damit «die Verfügbarkeit der Personendaten und der Zugang zu ihnen bei einem physischen oder technischen Zwischenfall rasch wiederhergestellt werden können»."
+
+[norm.dsv3_2f]
+ref = "Art. 3 Abs. 2 lit. f DSV"
+duty = "sicherheit"
+act = "dsv"
+title = "Systemsicherheit"
+text = "Massnahmen, damit «Betriebssysteme und Anwendungssoftware stets auf dem neusten Sicherheitsstand gehalten und bekannte kritische Lücken geschlossen werden»."
+
+[norm.dsv3_3a]
+ref = "Art. 3 Abs. 3 lit. a DSV"
+duty = "sicherheit"
+act = "dsv"
+title = "Eingabekontrolle"
+text = "Massnahmen, damit «überprüft werden kann, welche Personendaten zu welcher Zeit und von welcher Person im automatisierten Datenbearbeitungssystem eingegeben oder verändert werden»."
+
+[norm.dsv3_3c]
+ref = "Art. 3 Abs. 3 lit. c DSV"
+duty = "sicherheit"
+act = "dsv"
+title = "Erkennung"
+text = "Massnahmen, damit «Verletzungen der Datensicherheit rasch erkannt» und ihre Folgen gemindert oder beseitigt werden können."
+
+# --------------------------------------------------------------------------- norms: Sorgfalt und Haftung
+
+[norm.bgfa12a]
+ref = "Art. 12 lit. a BGFA"
+duty = "sorgfalt"
+act = "bgfa"
+title = "Sorgfältige Berufsausübung"
+text = "«Sie üben ihren Beruf sorgfältig und gewissenhaft aus.» Disziplinarisch erfasst ist nur eine erhebliche Pflichtverletzung (BGE 144 II 473 E. 4.1). Dann kann die Aufsichtsbehörde eine Verwarnung, einen Verweis, eine Busse bis 20 000 Franken oder ein befristetes oder dauerndes Berufsausübungsverbot anordnen (Art. 17 Abs. 1 BGFA)."
+
+[norm.or398]
+ref = "Art. 398 Abs. 2 OR"
+duty = "sorgfalt"
+act = "or"
+title = "Haftung aus Auftrag"
+text = "Der Beauftragte «haftet dem Auftraggeber für getreue und sorgfältige Ausführung des ihm übertragenen Geschäftes»."
+
+# --------------------------------------------------------------------------- norms: Meldepflicht
+
+[norm.dsg24]
+ref = "Art. 24 DSG"
+duty = "meldung"
+act = "dsg"
+title = "Meldung von Verletzungen der Datensicherheit"
+text = "Eine Verletzung der Datensicherheit, «die voraussichtlich zu einem hohen Risiko für die Persönlichkeit oder die Grundrechte der betroffenen Person führt», ist dem EDÖB «so rasch als möglich» zu melden (Abs. 1). «Der Verantwortliche informiert die betroffene Person, wenn es zu ihrem Schutz erforderlich ist oder der EDÖB es verlangt» (Abs. 4); das darf eingeschränkt werden, wenn «eine gesetzliche Geheimhaltungspflicht dies verbietet» (Abs. 5 lit. a). Im Strafverfahren darf die Meldung gegen die meldende Person nur mit deren Einverständnis verwendet werden (Abs. 6). Erfasst sind nur Verletzungen, die Personendaten betreffen."
+
+[norm.dsv15_4]
+ref = "Art. 15 Abs. 4 DSV"
+duty = "meldung"
+act = "dsv"
+title = "Dokumentation"
+text = "«Der Verantwortliche muss die Verletzungen dokumentieren.» Die Dokumentation ist ab der Meldung «mindestens zwei Jahre aufzubewahren»."
+
+# --------------------------------------------------------------------------- open questions
+
+[[question]]
+title = "Macht eine IT-Lücke strafbar?"
+text = "Art. 321 StGB verlangt Vorsatz. Die Lehre hält ein Offenbaren durch unechte Unterlassung für möglich, etwa durch ungenügende Aufbewahrung von Akten. Vollendet ist die Tat aber erst, wenn ein Dritter tatsächlich Kenntnis nimmt; vorher bleibt allenfalls ein Versuch."
+sources = [
+    "Schwarzenegger/Thouvenin/Stiller/George, Nutzung von Cloud-Diensten durch Anwältinnen und Anwälte, AnwaltsRevue 1/2019, 25 ff., Fn. 15, mit Hinweisen auf Oberholzer, BSK StGB, Art. 321 N 19, und Trechsel/Vest, StGB, Art. 321 N 23",
+]
+
+[[question]]
+title = "Ist eine IT- oder Cloud-Firma Hilfsperson?"
+text = "Die herrschende Lehre versteht den Begriff weit: Wer arbeitsteilig für die Kanzlei tätig ist, ist Hilfsperson, und «Hilfspersonen sind nie unberechtigte Dritte»; die Weitergabe an sie ist kein Offenbaren. Eine Minderheit sieht Outsourcing-Anbieter und IT-Firmen, die Software warten, nicht als Hilfspersonen. Art. 38 SSR folgt der weiten Sicht. Unabhängig davon macht sich nach Art. 62 Abs. 2 DSG strafbar, wer geheime Personendaten vorsätzlich offenbart, die er bei der Arbeit für eine Kanzlei erfahren hat (auf Antrag, Busse bis 250 000 Franken)."
+sources = [
+    "Schwarzenegger/Thouvenin/Stiller/George, AnwaltsRevue 1/2019, 25 ff. (Kurzfassung eines Gutachtens für den SAV), Fn. 13 mit Hinweisen auf BezGer Zürich GG150233 vom 18.11.2015, Oberholzer, BSK StGB, Art. 321 N 10, und Trechsel/Vest, StGB, Art. 321 N 13 (herrschende Lehre)",
+    "Wohlers, Auslagerung einer Datenbearbeitung und Berufsgeheimnis (Art. 321 StGB), Gutachten für den Datenschutzbeauftragten des Kantons Zürich, 2016; ders., digma 2017, 116 (Minderheit)",
+]
+
+[[question]]
+title = "Greift die Strafnorm von Art. 61 lit. c DSG?"
+text = "Sie droht privaten Personen auf Antrag eine Busse bis 250 000 Franken an, wenn sie vorsätzlich «die Mindestanforderungen an die Datensicherheit» nicht einhalten. Ein Teil der Lehre meint, die DSV enthalte keine solchen Mindestanforderungen, die Norm laufe darum ins Leere. Der Bundesrat und der EDÖB sehen das anders. Unbestritten anwendbar bleibt lit. b: wer Daten einem Auftragsbearbeiter überträgt, ohne dass die Voraussetzungen von Art. 9 Abs. 1 und 2 DSG erfüllt sind. LexShield zitiert Art. 61 DSG deshalb bei keinem Befund."
+sources = [
+    "Meyle/Morand/Vasella, DSV: keine Mindestanforderungen an die Datensicherheit, keine entsprechende Strafbarkeit, weitere Anmerkungen, datenrecht.ch, 19.9.2022 (mit dem Zitat des Bundesrats)",
+    "EDÖB, Leitfaden betreffend die Meldung von Datensicherheitsverletzungen und Information der Betroffenen nach Art. 24 DSG, Version 1.2 vom 23.4.2025",
+]
+
+[[question]]
+title = "Dürfen Mandatsdaten in eine US-Cloud?"
+text = "Datenschutzrechtlich anerkennt die Schweiz die USA seit dem 15.9.2024 für Unternehmen, die nach dem Swiss-U.S. Data Privacy Framework zertifiziert sind. Für das Berufsgeheimnis vermutet Art. 38 SSR ausreichende Sicherheit bei ausreichend erfahrenen Anbietern, die Daten in der Schweiz, der EU, der EFTA oder im Vereinigten Königreich speichern und bearbeiten. Offen ist, ob die Vermutung auch gilt, wenn ein US-Anbieter die Daten dort hält, aber nach dem US CLOUD Act zur Herausgabe verpflichtet werden kann. Die Lehre verlangt bei ausländischen Anbietern eine Risikobeurteilung im Einzelfall, die auch die tatsächliche Wahrscheinlichkeit eines Zugriffs berücksichtigt, und empfiehlt die Einwilligung der Klientschaft."
+sources = [
+    "Anhang 1 DSV (Staatenliste), Fassung vom 15.9.2024",
+    "Art. 38 SSR",
+    "Schwarzenegger/Thouvenin/Stiller/George, AnwaltsRevue 1/2019, 25 ff., Ziff. III.4.C und III.5",
+]
+
+[[question]]
+title = "Verletzt die Meldung an den EDÖB das Berufsgeheimnis?"
+text = "Art. 321 Ziff. 3 StGB behält die «Bestimmungen über die Melde- und Mitwirkungsrechte, über die Zeugnispflicht und über die Auskunftspflicht gegenüber einer Behörde» vor. Die Meldung braucht nur Art, Folgen und Massnahmen sowie, soweit möglich, Kategorien und ungefähre Anzahl der Betroffenen, also keine Namen. Der EDÖB behandelt Meldungen als amtliche Dokumente, die nach dem Öffentlichkeitsgesetz grundsätzlich zugänglich sind. Eine Meldung sollte deshalb kein Mandat erkennen lassen. Eine Stellungnahme der Lehre zu dieser Frage ist LexShield nicht bekannt."
+sources = [
+    "Art. 321 Ziff. 3 StGB; Art. 24 Abs. 2 DSG; Art. 15 Abs. 1 DSV",
+    "EDÖB, Leitfaden betreffend die Meldung von Datensicherheitsverletzungen und Information der Betroffenen nach Art. 24 DSG, Version 1.2 vom 23.4.2025",
+]
